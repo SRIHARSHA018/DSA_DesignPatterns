@@ -23,6 +23,33 @@ class LinkedList{
         bool isEmpty(){
             return this->_head == nullptr;
         }
+        void insertAt(TL data, int position){
+            if(this->isEmpty()){
+                this->insertNode(data);
+                return;
+            }
+            Node<TL>* newnode = new Node<TL>();
+            newnode->data = data;
+            if(position==1){
+                newnode->next = this->_head;
+                this->_head = newnode;
+                return;
+            }            
+            Node<TL>* curr_temp = this->_head;
+            Node<TL>* prev_temp = this->_head;
+            int pos_tracker = 1;
+            while(curr_temp->next!=nullptr){
+                if(pos_tracker == position-1){
+                    curr_temp = curr_temp->next;
+                    newnode->next = curr_temp;
+                    prev_temp->next = newnode;
+                    return;
+                }
+                pos_tracker++;
+                prev_temp = prev_temp->next;
+            }
+            return;
+        }
         void insertNode(TL data){
             Node<TL>* node = new Node<TL>();
             node->data = data;
